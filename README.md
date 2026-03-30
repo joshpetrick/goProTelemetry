@@ -18,7 +18,23 @@ npm install
 node extract-gps.js /path/to/video.mp4 /path/to/output.json
 ```
 
+Optional third argument controls MP4 read chunk size in MB (default `8`):
+
+```bash
+node extract-gps.js /path/to/video.mp4 /path/to/output.json 8
+```
+
 If you omit the output path, it writes to `gps-data.json` in the current directory.
+
+## Large-file memory notes
+
+This script reads the MP4 in chunks instead of loading the full video into memory, which helps avoid Node heap crashes on large files.
+
+If your file is still very large, you can also raise Node heap size when running:
+
+```bash
+node --max-old-space-size=8192 extract-gps.js /path/to/video.mp4 /path/to/output.json
+```
 
 ## Output shape
 
