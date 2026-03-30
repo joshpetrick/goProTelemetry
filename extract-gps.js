@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import gpmfExtract from 'gpmf-extract';
 import goproTelemetry from 'gopro-telemetry';
 
 async function main() {
@@ -17,13 +18,15 @@ async function main() {
   const outputPath = path.resolve(outputPathArg ?? 'gps-data.json');
 
   const inputBuffer = await fs.readFile(inputPath);
+  const extracted = await gpmfExtract(inputBuffer);
 
-  const telemetry = await goproTelemetry(inputBuffer, {
+  const telemetry = await goproTelemetry(extracted, {
     stream: ['GPS5', 'GPS9'],
     groupTimes: 'frames',
     timeIn: 'GPS',
     preset: 'default',
-    tolerant: true
+    tolerant: true,
+    promisify: true
   });
 
   const interpreted = normalizeGps(telemetry);
@@ -37,11 +40,7 @@ function normalizeGps(telemetry) {
 
   for (const [deviceName, streams] of Object.entries(telemetry ?? {})) {
     for (const [streamName, samples] of Object.entries(streams ?? {})) {
-      if (!Array.isArray(samples)) {
-        continue;
-      }
-
-      if (!streamName.startsWith('GPS')) {
+      if (!Array.isArray(samples) || !streamName.startsWith('GPS')) {
         continue;
       }
 

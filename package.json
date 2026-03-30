@@ -9,6 +9,7 @@
     "check": "node --check extract-gps.js"
   },
   "dependencies": {
-    "gopro-telemetry": "^8.3.0"
+    "gpmf-extract": "^0.3.2",
+    "gopro-telemetry": "^1.2.7"
   }
 }

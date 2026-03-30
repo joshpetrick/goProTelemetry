@@ -1,6 +1,6 @@
 # GoPro MP4 GPS Exporter
 
-Small Node.js utility that reads a GoPro `.mp4` and exports GPS telemetry to JSON using [`gopro-telemetry`](https://www.npmjs.com/package/gopro-telemetry).
+Small Node.js utility that reads a GoPro `.mp4` and exports GPS telemetry to JSON using [`gpmf-extract`](https://www.npmjs.com/package/gpmf-extract) + [`gopro-telemetry`](https://www.npmjs.com/package/gopro-telemetry).
 
 ## Requirements
 
