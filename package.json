@@ -1,0 +1,14 @@
+{
+  "name": "gopro-telemetry-gps-exporter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Export GPS telemetry from a GoPro MP4 file to JSON",
+  "type": "module",
+  "scripts": {
+    "extract:gps": "node extract-gps.js",
+    "check": "node --check extract-gps.js"
+  },
+  "dependencies": {
+    "gopro-telemetry": "^8.3.0"
+  }
+}
